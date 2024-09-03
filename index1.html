@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolTool</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #121212;
+            color: #fff;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #fffc00;
+            margin: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1d1d1d;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #clock {
+            font-size: 72px;
+            color: #fffc00;
+            margin-top: 20px;
+        }
+
+        #nextLesson {
+            font-size: 24px;
+            color: #fffc00;
+            margin-top: 10px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #777;
+            margin-top: 20px;
+        }
+        
+        .book {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .book img {
+            width: 150px;
+            height: 200px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .book img:hover {
+            border-color: #333;
+        }
+    </style>
+</head>
+<body background="bg.png">
+    <div class="container">
+        <h1>Годинник до кінця уроку</h1>
+        <div id="clock">Завантаження...</div>
+        <div id="nextLesson">Текучий урок: 1 УРОК</div>
+        <h3>Ствоювач сайту NSCode sites</h3>
+    </div>
+    <script>
+    function updateTime() {
+        const now = new Date();
+        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+        const currentSeconds = now.getSeconds();
+        const lessonTimes = [
+            { start: 8 * 60, end: 8 * 60 + 45, name: "1 уроку" },
+            { start: 8 * 60 + 50, end: 8 * 60 + 50 + 45, name: "2 УРОК" },
+            { start: 9 * 60 + 45, end: 9 * 60 + 45 + 45, name: "3 УРОК" },
+            { start: 10 * 60 + 40, end: 10 * 60 + 40 + 45, name: "4 УРОК" },
+            { start: 11 * 60 + 35, end: 11 * 60 + 35 + 45, name: "5 УРОК" },
+            { start: 12 * 60 + 30, end: 12 * 60 + 30 + 45, name: "6 УРОК" }
+        ];
+        let message = "Закінчено уроки на сьогодні";
+        let nextLesson = "Текучий урок: 1 УРОК";
+        for (const lesson of lessonTimes) {
+            if (currentTimeInMinutes >= lesson.start && currentTimeInMinutes <= lesson.end) {
+                const remainingMinutes = lesson.end - currentTimeInMinutes;
+                const remainingHours = Math.floor(remainingMinutes / 60);
+                const minutes = remainingMinutes % 60;
+                const remainingSeconds = 60 - currentSeconds;
+                message = `Залишилося ${remainingHours} год. ${minutes} хв. ${remainingSeconds} сек. до кінця ${lesson.name}`;
+                nextLesson = `текучий урок: ${lesson.name}`;
+                break;
+            } else if (currentTimeInMinutes < lesson.start) {
+                const minutes = lesson.start - currentTimeInMinutes;
+                const hours = Math.floor(minutes / 60);
+                const remainingMinutes = minutes % 60;
+                message = `Час до початку ${lesson.name}: ${hours} год. ${remainingMinutes} хв.`;
+                nextLesson = `текучий урок: ${lesson.name}`;
+                break;
+            }
+        }
+        document.getElementById('clock').textContent = message;
+        document.getElementById('nextLesson').textContent = nextLesson;
+    }
+    function formatTime(minutes) {
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        return `${hours < 10 ? '0' : ''}${hours}:${mins < 10 ? '0' : ''}${mins}`;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+</script>
+    <h1>Моя електронна бібліотека</h1>
+    <div id="bookshelf">
+        <div class="book">
+            <a href="algebra.pdf">
+                <img src="algebra.jpg" alt="algebra">
+            </a>
+        </div>
+        <div class="book">
+            <a href="biologia.pdf">
+                <img src="biologia.jpg" alt="biologia">
+            </a>
+        </div>
+        <div class="book">
+            <a href="english.pdf">
+                <img src="eng.jpg" alt="english">
+            </a>
+        </div>
+        <div class="book">
+            <a href="fizika.pdf">
+                <img src="fiz.jpg" alt="fizika">
+            </a>
+        </div>
+        <div class="book">
+            <a href="geografia.pdf">
+                <img src="geo.jpg" alt="geografia">
+            </a>
+        </div>
+        <div class="book">
+            <a href="geometry.pdf">
+                <img src="geom.jpg" alt="geometry">
+            </a>
+        </div>
+        <div class="book">
+            <a href="himiya.pdf">
+                <img src="him.jpg" alt="himiya">
+            </a>
+        </div>
+        <div class="book">
+            <a href="inform.pdf">
+                <img src="inform.jpg" alt="inform">
+            </a>
+        </div>
+        <div class="book">
+            <a href="nimmova.pdf">
+                <img src="nimm.jpg" alt="nimmova">
+            </a>
+        </div>
+        <div class="book">
+            <a href="osnzdor.pdf">
+                <img src="osnz.jpg" alt="osnzdor">
+            </a>
+        </div>
+        <div class="book">
+            <a href="svitovalit.pdf">
+                <img src="swlit.jpg" alt="svitowa literatura">
+            </a>
+        </div>
+        <div class="book">
+            <a href="ukrist.pdf">
+                <img src="ist.jpg" alt="ukristoria">
+            </a>
+        </div>
+        <div class="book">
+            <a href="ukrlit.pdf">
+                <img src="lit.jpg" alt="ukr literatura">
+            </a>
+        </div>
+        <div class="book">
+            <a href="ukrmova.pdf">
+                <img src="ukr1.jpg" alt="ukr mova">
+            </a>
+        </div>
+
+        <div class="book">
+            <a href="vsistor.pdf">
+                <img src="vsist.jpg" alt="vs istoria">
+            </a>
+        </div>
+        <!-- Додайте більше книг за потреби -->
+    <h3>Завантаж шкільні підручники або запускай у браузері на пк</h3>
+    <h1>
+        Розклад дзвінків 
+    </h1>
+    <p>
+       1 урок: 8:00 - 8:45
+    </p>
+    <p>
+       2 урок: 8:50 - 9:35
+    </p>
+    <p>
+       3 урок: 9:45 - 10:30
+    </p>
+    <p>
+       4 урок: 10:40 - 11:25
+    </p>
+    <p>
+       5 урок: 11:35 - 12:20
+    </p>
+    <p>
+       6 урок: 12:30 - 13:15
+    </p>
+    </div>
+</body>
+</html>
